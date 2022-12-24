@@ -1,0 +1,18 @@
+{
+  "name": "remzy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.18.2",
+    "expressjs": "^1.0.1",
+    "mongoose": "^6.8.1",
+    "nodemon": "^2.0.20",
+    "react-router-dom": "^6.6.1"
+  }
+}
