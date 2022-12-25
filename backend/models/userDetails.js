@@ -15,6 +15,7 @@ password: String,
 phoneno: String,
 isDoctor: Boolean,
 address: [addressSchema],
+doctordata: [doctorSchema],
 },{
 collection: "Userinfo",
 });
