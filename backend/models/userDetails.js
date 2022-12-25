@@ -1,5 +1,7 @@
 const mongoose=require("mongoose")
 const { stringify } = require("nodemon/lib/utils")
+const doctorDetails = require('./doctorDetails').Schema;
+
 
 const addressSchema=new mongoose.Schema({
    country: String,
@@ -15,7 +17,7 @@ password: String,
 phoneno: String,
 isDoctor: Boolean,
 address: [addressSchema],
-doctordata: [doctorSchema],
+doctordata:{type: Schema.Types.ObjectId, ref: 'doctorDetails'},
 },{
 collection: "Userinfo",
 });
