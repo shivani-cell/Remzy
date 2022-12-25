@@ -23,24 +23,24 @@ app.post("/register",async(req,res)=>{
     console.log("Hi")
     console.log(req.body)
     const {name,email,password,phoneno,address,doctordata}=req.body;
-    console.log(address);
+    //console.log(address);
     //console.log(address[country]);
-    console.log("cfhjgsd" ,doctordata);
-    console.log(doctordata.service);
-    console.log(doctordata.gender);
+    //console.log("cfhjgsd" ,doctordata);
+    console.log(doctordata[0].gender);
+    console.log(doctordata[0].bloodgroup);
     try{
-         const doctord=await doctor.create({
-            gender:doctordata.gender,
-            bloodgroup:doctordata.bloodgroup,
-            address:doctordata.address,
-            adhaarcard:doctordata.adhaarcard,
-            permanentAddress:doctordata.permanentAddress,
-            fatherName:doctordata.fatherName,
-            motherName:doctordata.motherName,
-            maritalStatus:doctordata.maritalStatus,
-            dob:doctordata.dob ,
-            alternateContactNo:doctordata.alternateContactNo,
-            service:doctordata.service,
+         const doctord= await doctor.create({
+            gender:doctordata[0].gender,
+            bloodgroup:doctordata[0].bloodgroup,
+            address:doctordata[0].address,
+            adhaarcard:doctordata[0].adhaarcard,
+            permanentAddress:doctordata[0].permanentAddress,
+            fatherName:doctordata[0].fatherName,
+            motherName:doctordata[0].motherName,
+            maritalStatus:doctordata[0].maritalStatus,
+            dob:doctordata[0].dob ,
+            alternateContactNo:doctordata[0].alternateContactNo,
+            service:doctordata[0].service,
             educationalInfo:[],
             experienceDetails:[],
             doctorAccountdetails:[],
