@@ -1,13 +1,6 @@
 const mongoose=require("mongoose")
 const { stringify } = require("nodemon/lib/utils")
 
-const NomineeAccountDetailsSchema =new mongoose.Schema({
-   accountDetails:[AccountDetailsSchema],
-   relation:String,
-   adharCardNo:String,
-   emailId:String,
-   mobileNo:String,
-});
 
 const AccountDetailsSchema=new mongoose.Schema({
    bankName:String,
@@ -15,6 +8,15 @@ const AccountDetailsSchema=new mongoose.Schema({
    accountHolderName:String,
    IFSCcode:String,
 });
+
+const NomineeAccountDetailsSchema =new mongoose.Schema({
+    accountDetails:[AccountDetailsSchema],
+    relation:String,
+    adharCardNo:String,
+    emailId:String,
+    mobileNo:String,
+ });
+ 
 
 const DoctorExperienceSchema=new mongoose.Schema({
    companyName:String,
@@ -48,7 +50,7 @@ const DoctorDetailsSchema=new mongoose.Schema({
   permanentAddress: String,
   fatherName:String,
   motherName:String,
-  martialStatus:String,
+  maritalStatus:String,
   dob:Date,
   alternateContactNo:String,
   service:Array,

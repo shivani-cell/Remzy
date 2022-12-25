@@ -22,7 +22,7 @@ app.listen(5000,()=>{
 app.post("/register",async(req,res)=>{
     console.log("Hi")
     console.log(req.body)
-    const {name,email,password,phoneno,address}=req.body;
+    const {name,email,password,phoneno,address,doctordata}=req.body;
     try{
         await user.create({
             name:name,
@@ -30,11 +30,13 @@ app.post("/register",async(req,res)=>{
             password:password,
             phoneno:phoneno,
             isDoctor:false,
-            address:req.body.address
+            address:req.body.address,
+            doctordata:req.body.doctordata
         });
         res.send({status:"ok"})
     }
     catch(error){
+        console.log(error)
         res.send({status:"error"})
     }
 })
