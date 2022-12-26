@@ -1,7 +1,8 @@
 const mongoose=require("mongoose")
 const { stringify } = require("nodemon/lib/utils")
 const doctorDetails = require('./doctorSchema').Schema;
-const Schema = mongoose.Schema;
+//const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const { ObjectId } = mongoose.Schema;
 const addressSchema=new mongoose.Schema({

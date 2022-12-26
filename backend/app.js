@@ -23,13 +23,13 @@ app.post("/register",async(req,res)=>{
     console.log("Hi")
     console.log(req.body)
     const {name,email,password,phoneno,address,doctordata}=req.body;
-    console.log(address);
+    //console.log(address);
     //console.log(address[country]);
-    console.log("cfhjgsd" ,doctordata);
-    console.log(doctordata[0].service);
+    //console.log("cfhjgsd" ,doctordata);
     console.log(doctordata[0].gender);
+    console.log(doctordata[0].bloodgroup);
     try{
-         const doctord=await doctor.create({
+         const doctord= await doctor.create({
             gender:doctordata[0].gender,
             bloodgroup:doctordata[0].bloodgroup,
             address:doctordata[0].address,
@@ -41,10 +41,10 @@ app.post("/register",async(req,res)=>{
             dob:doctordata[0].dob ,
             alternateContactNo:doctordata[0].alternateContactNo,
             service:doctordata[0].service,
-            educationalInfo:doctordata[0].educationalInfo,
-            experienceDetails:doctordata[0].experienceDetails,
-            doctorAccountdetails:doctordata[0].doctorAccountdetails,
-            nomineeAccountDetails:doctordata[0].nomineeAccountDetails
+            educationalInfo:[],
+            experienceDetails:[],
+            doctorAccountdetails:[],
+            nomineeAccountDetails:[]
         });
         await user.create({
             name:name,
