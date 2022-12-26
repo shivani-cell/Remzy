@@ -26,25 +26,25 @@ app.post("/register",async(req,res)=>{
     console.log(address);
     //console.log(address[country]);
     console.log("cfhjgsd" ,doctordata);
-    console.log(doctordata.service);
-    console.log(doctordata.gender);
+    console.log(doctordata[0].service);
+    console.log(doctordata[0].gender);
     try{
          const doctord=await doctor.create({
-            gender:doctordata.gender,
-            bloodgroup:doctordata.bloodgroup,
-            address:doctordata.address,
-            adhaarcard:doctordata.adhaarcard,
-            permanentAddress:doctordata.permanentAddress,
-            fatherName:doctordata.fatherName,
-            motherName:doctordata.motherName,
-            maritalStatus:doctordata.maritalStatus,
-            dob:doctordata.dob ,
-            alternateContactNo:doctordata.alternateContactNo,
-            service:doctordata.service,
-            educationalInfo:[],
-            experienceDetails:[],
-            doctorAccountdetails:[],
-            nomineeAccountDetails:[]
+            gender:doctordata[0].gender,
+            bloodgroup:doctordata[0].bloodgroup,
+            address:doctordata[0].address,
+            adhaarcard:doctordata[0].adhaarcard,
+            permanentAddress:doctordata[0].permanentAddress,
+            fatherName:doctordata[0].fatherName,
+            motherName:doctordata[0].motherName,
+            maritalStatus:doctordata[0].maritalStatus,
+            dob:doctordata[0].dob ,
+            alternateContactNo:doctordata[0].alternateContactNo,
+            service:doctordata[0].service,
+            educationalInfo:doctordata[0].educationalInfo,
+            experienceDetails:doctordata[0].experienceDetails,
+            doctorAccountdetails:doctordata[0].doctorAccountdetails,
+            nomineeAccountDetails:doctordata[0].nomineeAccountDetails
         });
         await user.create({
             name:name,
