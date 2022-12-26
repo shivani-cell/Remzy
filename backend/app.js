@@ -1,9 +1,16 @@
 const express=require("express")
 const app=express()
 const mongoose=require("mongoose")
+const multer = require("multer");
 app.use(express.json());
 require("./models/userDetails")
 require("./models/doctorSchema")
+
+const user=mongoose.model("userDetails");
+const doctor=mongoose.model("doctorDetails");
+
+const ImageModel=require("./models/documentsSchema")
+
 const mongourl="mongodb+srv://shimittal:shivani@cluster0.s51nxga.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(mongourl,{
     useNewUrlParser:true,
@@ -11,21 +18,51 @@ mongoose.connect(mongourl,{
     console.log("connected to database");
 }).catch((e)=>console.log(e))
 
-const user=mongoose.model("userDetails");
-const doctor=mongoose.model("doctorDetails");
+
 app.listen(5000,()=>{
     console.log("server started")
 })
 
+//uploading files 
 
+//storage
+const  Storage=multer.diskStorage({
+    destination:'upload',
+    filename:(req,file,cb)=>{
+        cb(null,file.originalname)
+    },
+
+});
+
+const upload = multer({
+    storage:Storage
+}).single('testImage');
+
+app.post('/upload',(req,res)=>{
+    upload(req,res,(err)=>{
+        if(err){
+            console.log(err)
+        }
+        else {
+            const newImage=new ImageModel({
+                name:req.body.name,
+                image:{
+                    data:req.file.filename,
+                    contentType:'/image/jpeg'
+                }
+            })
+            newImage.save()
+                .then(()=>res.send("successfully uploaded"))
+                .catch(err=>console.log(err));
+        }
+       
+    })
+})
 
 app.post("/register",async(req,res)=>{
     console.log("Hi")
     console.log(req.body)
     const {name,email,password,phoneno,address,doctordata}=req.body;
-    //console.log(address);
-    //console.log(address[country]);
-    //console.log("cfhjgsd" ,doctordata);
     console.log(doctordata[0].gender);
     console.log(doctordata[0].bloodgroup);
     try{
