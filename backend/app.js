@@ -6,6 +6,14 @@ app.use(express.json());
 require("./models/userDetails")
 require("./models/doctorSchema")
 
+//media upload start
+
+const upload = require("./routes/upload");
+const Grid = require("gridfs-stream");
+app.use("/file", upload);
+
+//media upload end
+
 const user=mongoose.model("userDetails");
 const doctor=mongoose.model("doctorDetails");
 
