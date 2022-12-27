@@ -1,8 +1,6 @@
 const mongoose=require("mongoose")
 const { stringify } = require("nodemon/lib/utils")
 const doctorDetails = require('./doctorSchema').Schema;
-const uploadDocuments = require('./documentsSchema').Schema;
-//const Schema = mongoose.Schema;
 const { Schema } = mongoose;
 
 const { ObjectId } = mongoose.Schema;
@@ -21,7 +19,6 @@ phoneno: String,
 isDoctor: Boolean,
 address: [addressSchema],
 doctordata:[{type: Schema.Types.ObjectId, ref: 'doctorDetails'}],
-//requiredDocuments: [{type: Schema.Types.ObjectId, ref: 'uploadDocuments'}],
 },{
 collection: "Userinfo",
 });
