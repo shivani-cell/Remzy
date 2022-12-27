@@ -27,18 +27,21 @@ app.listen(5000,()=>{
 
 //storage
 const  Storage=multer.diskStorage({
-    destination:'upload',
+    destination:'uploads',
     filename:(req,file,cb)=>{
         cb(null,file.originalname)
     },
 
 });
+// const upload=multer();
 
-const upload = multer({
-    storage:Storage
-}).single('testImage');
+
 
 app.post('/upload',(req,res)=>{
+    const upload = multer({
+        storage:Storage
+    }).single('testImage');
+    
     upload(req,res,(err)=>{
         if(err){
             console.log(err)
@@ -48,7 +51,7 @@ app.post('/upload',(req,res)=>{
                 name:req.body.name,
                 image:{
                     data:req.file.filename,
-                    contentType:'/image/jpeg'
+                    contentType:'image/png'
                 }
             })
             newImage.save()
