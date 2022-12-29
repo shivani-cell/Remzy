@@ -1,11 +1,14 @@
 const upload = require("../middleware/upload");
 const express = require("express");
 const router = express.Router();
+var uploadfiles=upload.fields([{ name: 'file1'},{name:'file2'}]);
 
-router.post("/upload", upload.single("file"), async (req, res) => {
-    if (req.file === undefined) return res.send("you must select a file.");
-    const imgUrl = `http://localhost:8080/file/${req.file.filename}`;
-    return res.send(imgUrl);
+router.post("/upload", uploadfiles, async (req, res) => {
+   if(req.files)
+    {
+    console.log(req.files);
+    res.send("sucessfully uploaded")
+}
 });
 
 module.exports = router;
