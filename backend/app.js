@@ -5,12 +5,15 @@ const multer = require("multer");
 app.use(express.json());
 require("./models/userDetails")
 require("./models/doctorSchema")
+const router = express.Router();
+const upload = require("./middleware/upload");
+var uploadfiles=upload.fields([{ name: 'file1'},{name:'file2'}]);
 
 //media upload start
 
-const upload = require("./routes/upload");
+//const upload = require("./routes/upload");
 const Grid = require("gridfs-stream");
-app.use("/file", upload);
+
 
 //media upload end
 
@@ -28,16 +31,18 @@ mongoose.connect(mongourl,{
 app.listen(5000,()=>{
     console.log("server started")
 })
+//app.use("/file", upload);
 
-
-app.post("/register",async(req,res)=>{
+app.post("/register",uploadfiles,async(req,res)=>{
     console.log("Hi")
     console.log(req.body)
+    console.log(req)
     const {name,email,password,phoneno,address,doctordata}=req.body;
     console.log(doctordata[0].gender);
     console.log(doctordata[0].bloodgroup);
     try{
          const doctord= await doctor.create({
+            image:req.files.filename,
             gender:doctordata[0].gender,
             bloodgroup:doctordata[0].bloodgroup,
             address:doctordata[0].address,
@@ -61,7 +66,7 @@ app.post("/register",async(req,res)=>{
             phoneno:phoneno,
             isDoctor:false,
             address:address,
-            doctordata:doctord
+            doctordata:doctord,
         });
         res.send({status:"ok"})
     }
