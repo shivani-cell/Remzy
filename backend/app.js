@@ -33,11 +33,57 @@ app.listen(5000,()=>{
 })
 //app.use("/file", upload);
 
+app.post("/addasdoctor",async(req,res)=>{
+    console.log(req)
+    console.log(req.body);
+    const doctord= await doctor.create({
+        image:req.files.filename,
+        gender:doctordata[0].gender,
+        bloodgroup:doctordata[0].bloodgroup,
+        address:doctordata[0].address,
+        adhaarcard:doctordata[0].adhaarcard,
+        permanentAddress:doctordata[0].permanentAddress,
+        fatherName:doctordata[0].fatherName,
+        motherName:doctordata[0].motherName,
+        maritalStatus:doctordata[0].maritalStatus,
+        alternateContactNo:doctordata[0].alternateContactNo,
+        service:doctordata[0].service,
+        educationalInfo:[],
+        experienceDetails:[],
+        doctorAccountdetails:[],
+        nomineeAccountDetails:[]
+    });
+  User.findOneAndUpdate(
+    {
+      _id: req.user._id,
+    },{
+      doctord:doctord
+    },
+    (err, updatedUser) => {
+      if (err) {
+        res.status(200).json({
+          status: "400",
+          msg: "Cannot add as a doctor ",
+        });
+      } else {
+        console.log(updatedUser);
+        res.status(200).json({
+          status: "200",
+          msg: "Added as a doctor",
+          updatedUser: updatedUser,
+        });
+      }
+    }
+  );
+})
+
+
+
 app.post("/register",uploadfiles,async(req,res)=>{
     console.log("Hi")
     console.log(req.body)
     console.log(req)
-    const {name,email,password,phoneno,address,doctordata}=req.body;
+    const {name,email,password,phoneno,dob,address,doctordata}=req.body;
     console.log(doctordata[0].gender);
     console.log(doctordata[0].bloodgroup);
     try{
@@ -51,7 +97,6 @@ app.post("/register",uploadfiles,async(req,res)=>{
             fatherName:doctordata[0].fatherName,
             motherName:doctordata[0].motherName,
             maritalStatus:doctordata[0].maritalStatus,
-            dob:doctordata[0].dob ,
             alternateContactNo:doctordata[0].alternateContactNo,
             service:doctordata[0].service,
             educationalInfo:[],
@@ -64,9 +109,10 @@ app.post("/register",uploadfiles,async(req,res)=>{
             email:email,
             password:password,
             phoneno:phoneno,
+            dob:dob,
             isDoctor:false,
             address:address,
-            doctordata:doctord,
+            doctordata:[],
         });
         res.send({status:"ok"})
     }

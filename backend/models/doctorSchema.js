@@ -52,7 +52,6 @@ const DoctorDetailsSchema=new mongoose.Schema({
   fatherName:String,
   motherName:String,
   maritalStatus:String,
-  dob:Date,
   alternateContactNo:String,
   service:Array,
   educationalInfo:[DoctorEducationSchema],
