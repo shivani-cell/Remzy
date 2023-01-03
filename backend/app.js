@@ -6,6 +6,7 @@ app.use(express.json());
 require("./models/userDetails")
 require("./models/doctorSchema")
 
+
 //media upload start
 
 const upload = require("./routes/upload");
@@ -25,7 +26,7 @@ mongoose.connect(mongourl,{
 }).catch((e)=>console.log(e))
 
 
-app.listen(5000,()=>{
+app.listen(3001,()=>{
     console.log("server started")
 })
 
@@ -33,7 +34,7 @@ app.listen(5000,()=>{
 app.post("/register",async(req,res)=>{
     console.log("Hi")
     console.log(req.body)
-    const {name,email,password,phoneno,address,doctordata}=req.body;
+    const {name,email,dob,password,phoneno,address,doctordata}=req.body;
     console.log(doctordata[0].gender);
     console.log(doctordata[0].bloodgroup);
     try{
@@ -57,6 +58,7 @@ app.post("/register",async(req,res)=>{
         await user.create({
             name:name,
             email:email,
+            dob:dob,
             password:password,
             phoneno:phoneno,
             isDoctor:false,

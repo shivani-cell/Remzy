@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import "./register.css"
-import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
 const Register = () => {
@@ -10,6 +9,8 @@ const Register = () => {
     const [ user, setUser] = useState({
         name: "",
         email:"",
+        dob:"",
+        mobileno:"",
         password:"",
         reEnterPassword: ""
     })
@@ -22,27 +23,51 @@ const Register = () => {
         })
     }
 
-    const register = () => {
-        const { name, email, password, reEnterPassword } = user
-        if( name && email && password && (password === reEnterPassword)){
-            axios.post("http://localhost:9002/register", user)
-            .then( res => {
-                alert(res.data.message)
-                history("/login")
-            })
-        } else {
-            alert("invlid input")
-        }
+    const register = async(e) => {
+        console.log("helo gjkhkjk")
+
+        e.preventDefault();
+        const { name, email,mobileno,dob, password, reEnterPassword } = user
+        console.log(user)
+        if( name && email && mobileno && dob && password && (password === reEnterPassword)){
+
+            const res= await fetch("/register", {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify({
+                    name, email, mobileno, dob, password
+                })
+            });
+            const data= await res.json();
+            console.log(data);
+            if(!data||data.status === "210" ){
+                window.alert(data.msg);
+                console.log("Invalid Registration");
+                
+            }
+            else{
+                window.alert(data.msg);
+                console.log("Successful Registration");
+                History.push("/Login");
+            }
+         }
         
-    }
+        }
+    
 
     return (
         <div className="register">
             {console.log("User", user)}
             <h1>Register</h1>
-            <input type="text" name="name" value={user.name} placeholder="Your Name" onChange={ handleChange }></input>
-            <input type="text" name="email" value={user.email} placeholder="Your Email" onChange={ handleChange }></input>
-            <input type="password" name="password" value={user.password} placeholder="Your Password" onChange={ handleChange }></input>
+            <input type="text" name="name" value={user.name} placeholder="Name" onChange={ handleChange }></input>
+            <input type="text" name="email" value={user.email} placeholder="Email Id" onChange={ handleChange }></input>
+            
+            <input type="text" name="mobileno" value={user.mobileno} placeholder="Mobile Number" onChange={ handleChange }></input>
+            <input type="date" name="dob" value={user.dob} placeholder="Date Of Birth" onChange={ handleChange }></input>
+
+            <input type="password" name="password" value={user.password} placeholder="Password" onChange={ handleChange }></input>
             <input type="password" name="reEnterPassword" value={user.reEnterPassword} placeholder="Re-enter Password" onChange={ handleChange }></input>
             <div className="button" onClick={register} >Register</div>
             <div>or</div>
