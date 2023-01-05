@@ -23,7 +23,7 @@ const Register = () => {
         })
     }
 
-    const register = async(e) => {
+    const submituser = async(e) => {
         console.log("helo gjkhkjk")
 
         e.preventDefault();
@@ -50,7 +50,7 @@ const Register = () => {
             else{
                 window.alert(data.msg);
                 console.log("Successful Registration");
-                History.push("/Login");
+                history("/Login");
             }
          }
         
@@ -69,9 +69,10 @@ const Register = () => {
 
             <input type="password" name="password" value={user.password} placeholder="Password" onChange={ handleChange }></input>
             <input type="password" name="reEnterPassword" value={user.reEnterPassword} placeholder="Re-enter Password" onChange={ handleChange }></input>
-            <div className="button" onClick={register} >Register</div>
+            <div className="button" onClick={submituser} >Register</div>
             <div>or</div>
             <div className="button" onClick={() => history("/login")}>Login</div>
+            
         </div>
     )
 }
