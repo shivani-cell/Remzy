@@ -43,6 +43,7 @@ const DoctorEducationSchema = new mongoose.Schema({
 });
 
 const DoctorDetailsSchema=new mongoose.Schema({
+  image: String, 
   gender: String,
   bloodgroup: String,
   address: String,
@@ -51,14 +52,13 @@ const DoctorDetailsSchema=new mongoose.Schema({
   fatherName:String,
   motherName:String,
   maritalStatus:String,
-  dob:Date,
   alternateContactNo:String,
   service:Array,
   educationalInfo:[DoctorEducationSchema],
   experienceDetails:[DoctorExperienceSchema],
   doctorAccountdetails:[AccountDetailsSchema],
   nomineeAccountDetails:[NomineeAccountDetailsSchema],
-
+  
 });
 
 mongoose.model("doctorDetails",DoctorDetailsSchema);

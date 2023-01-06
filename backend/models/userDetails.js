@@ -14,6 +14,7 @@ const addressSchema=new mongoose.Schema({
 const UserDetailsSchema=new mongoose.Schema({
 name: String,
 email: String,
+dob: Date,
 password: String,
 phoneno: String,
 isDoctor: Boolean,
